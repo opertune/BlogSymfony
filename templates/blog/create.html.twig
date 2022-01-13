@@ -4,8 +4,9 @@
 {# Theme bootstrap pour le formulaire #}
 {% form_theme formArticle 'bootstrap_4_layout.html.twig' %}
 
-
-<h1>Création d'un article</h1>
+<h1>
+    {{ editMode ? 'Modifier un article' : 'Création d\'un article'}}
+</h1>
 <br>
 
 {# <form action="" method="post">
@@ -17,11 +18,17 @@
 
 {{ form_start(formArticle) }}
 
-{{ form_row(formArticle.title) }}
+{{ form_row(formArticle.category) }}
+<br>
+{{ form_row(formArticle.title, {'label': 'Titre', 'attr': {'placeholder': 'Titre de l\'article'}}) }}
+<br>
 {{ form_row(formArticle.content) }}
+<br>
 {{ form_row(formArticle.image) }}
-
-<button type="submit" class="btn btn-primary">Enregistrer</button>
+<br>
+<button type="submit" class="btn btn-primary">
+    {{ editMode ? 'Modifier' : 'Enregistrer'}}
+</button>
 
 {{ form_end(formArticle) }}
 

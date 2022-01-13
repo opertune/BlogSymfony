@@ -1,12 +1,39 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-        <article>
-            <h2>{{article.title}}</h2>
-            <div class="metadata">Ecrit le {{ article.createAt | date('d/m/y') }} à {{ article.createAt | date('H:i') }} dans la catégorie Politique</div>
-            <div class="content">
-                <img src="{{ article.image }}" alt="img">
-                {{ article.content | raw }}
+    <article>
+        <h2>{{article.title}}</h2>
+        <div class="metadata">Ecrit le {{ article.createAt | date('d/m/y') }} à {{ article.createAt | date('H:i') }} dans la catégorie {{article.category.title}}</div>
+        <div class="content">
+            <img src="{{ article.image }}" alt="img">
+            {{ article.content | raw }}
+        </div>
+    </article>
+    <br>
+    <h2>Commentaires</h2>
+    <section>
+        {% for comment in article.comments %}
+            <div class="comment">
+                <div class="row">
+                    {{ comment.author }} <small>({{comment.createdAt | date('d/m/Y à H:i')}})</small>
+                </div>
+                <div class="col-9">
+                    {{ comment.content | raw }}
+                </div>
             </div>
-        </article>
+        {% endfor %}
+    </section>
+
+    {% if app.user %}
+    <br>
+    <h2>Poster un commentaire</h2>
+    {{ form_start(commentForm) }}
+        {{ form_row(commentForm.author)}}
+        <br>
+        {{ form_row(commentForm.content)}}
+        <br>
+        <button type="submit" class="btn btn-primary">Poster</button>
+    {{ form_end(commentForm)}}
+    <br>
+    {% endif %}
 {% endblock %}

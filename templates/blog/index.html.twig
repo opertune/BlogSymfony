@@ -10,7 +10,7 @@
     {% for article in articles %}
         <article>
             <h2>{{ article.title }}</h2>
-            <div class="metadata">Ecrit le {{ article.createAt | date('d/m/y') }} à {{ article.createAt | date('H:i') }} dans la catégorie Politique</div>
+            <div class="metadata">Ecrit le {{ article.createAt | date('d/m/y') }} à {{ article.createAt | date('H:i') }} dans la catégorie {{article.category.title}}</div>
             <div class="content">
                 <img src="{{ article.image }}" alt="img">
                 {{ article.content | raw }}
